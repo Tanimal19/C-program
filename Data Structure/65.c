@@ -36,15 +36,12 @@ int findvariable(char *p){
 
 Info compute(int now){
 	Info expression;
+
 	if(strcmp(input[now], "(") == 0){
 
-		printf("left %d\n", now);
 		Info left = compute(now+2);
-		printf("right %d\n", now);
 		Info right = compute(left.end);
-		expression.end = right.end;
-
-		printf("%d %d %s\n", left.sum, right.sum, input[now+1]);
+		expression.end = right.end+1;
 
 		if(strcmp(input[now+1], "+") == 0){
 			expression.sum = left.sum + right.sum;
@@ -58,20 +55,17 @@ Info compute(int now){
 		else if(strcmp(input[now+1], "/") == 0){
 			expression.sum = left.sum / right.sum;
 		}
-		printf("ope now:%d sum:%d\n", now+1, expression.sum);
-
+		
 		return expression;
 	}
 	else{
 		if(input[now][0] >= '0' && input[now][0] <= '9'){
 			expression.sum = atoi(input[now]);
-			printf("num now:%d sum:%d\n", now, expression.sum);
 			expression.end = now+1;
 			return expression;
 		}
 		else{
 			expression.sum = variable[ findvariable(input[now]) ].value;
-			printf("var now:%d sum:%d\n", now, expression.sum);
 			expression.end = now+1;
 			return expression;
 		}
