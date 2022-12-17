@@ -11,9 +11,9 @@ int main()
   fa = fopen(str1, "rb");
   out = fopen(str3, "wb");
 
-  int buf;
-  while(fread(&buf, sizeof(int), 1, fa) > 0){
-    fwrite(&buf, sizeof(int), 1, out);
+  char buf;
+  while(fread(&buf, sizeof(char), 1, fa) > 0){
+    fwrite(&buf, sizeof(char), 1, out);
   }
 
   fclose(fa);
@@ -24,11 +24,11 @@ int main()
   out = fopen(str3, "ab");
 
   fseek(fb, 44, SEEK_SET);
-  while(fread(&buf, sizeof(int), 1, fb) > 0){
-    fwrite(&buf, sizeof(int), 1, out);
+  while(fread(&buf, sizeof(char), 1, fb) > 0){
+    fwrite(&buf, sizeof(char), 1, out);
   }
 
-  fclose(fa);
+  fclose(fb);
   fclose(out);
 
   /* get A and B size */
